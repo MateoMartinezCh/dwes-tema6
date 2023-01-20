@@ -9,8 +9,8 @@ define('BD_USUARIO', 'dwes');
 define('BD_CLAVE', 'dwes');
 
 // Opciones por defecto.
-define('CONTROLADOR_POR_DEFECTO', 'home');
-define('ACCION_POR_DEFECTO', 'home');
+define('CONTROLADOR_POR_DEFECTO', 'entrada');
+define('ACCION_POR_DEFECTO', 'lista');
 
 // Carpeta donde se almacenan las imágenes
 define('CARPETA_IMAGENES', 'imagenes');

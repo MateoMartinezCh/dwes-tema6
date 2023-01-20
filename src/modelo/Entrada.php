@@ -1,4 +1,5 @@
 <?php
+
 namespace dwesgram\modelo;
 
 use dwesgram\modelo\Modelo;
@@ -17,7 +18,14 @@ class Entrada extends Modelo
             'imagen' => null
         ];
     }
+    public static function crearEntradaDesdePost(array $post): Entrada
+    {
+        $texto = $post && isset($post['texto']) ? htmlspecialchars(trim($post['texto'])) : "";
 
+        return new Entrada(
+            texto: $texto
+        );
+    }
     public function getId(): int|null
     {
         return $this->id;
@@ -40,7 +48,9 @@ class Entrada extends Modelo
 
     public function esValida(): bool
     {
-        return count($this->errores) == 0;
+        return empty($this->errores['texto']);
+        /*         return count($this->errores) == 0;
+ */
     }
 
     public function getErrores(): array

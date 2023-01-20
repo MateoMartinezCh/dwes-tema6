@@ -20,7 +20,7 @@ $accion = $_GET && isset($_GET['accion']) ? htmlspecialchars($_GET['accion']) : 
  * la carpeta "controlador" que hay en el root path del proyecto. Con esto es suficiente para incluir el fichero donde
  * está el controlador.
  *********************************************************************************************************************/
-$controladorNombreClase = ucfirst(strtolower($controlador));
+$controladorNombreClase = ucfirst(strtolower($controlador)) . 'Controlador';
 $controladorPath = "controlador/$controladorNombreClase.php";
 include_once($controladorPath);
 
