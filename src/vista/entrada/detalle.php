@@ -11,5 +11,5 @@ if (!empty($datosParaVista['datos']) && $datosParaVista['datos'] != null) {
         <p><small>$dtstr</small></p>
     END;
 } else {
-    echo "<p>No existe esta entrada</p>";
+    echo "<p class='alert alert-danger'>No existe esta entrada</p>";
 }

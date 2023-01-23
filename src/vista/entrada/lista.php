@@ -31,5 +31,5 @@ if (!empty($datosParaVista['datos'])) {
     /*     echo "</div>";
  */
 } else {
-    echo "<h3>Tu lista de cosas por hacer está vacía</h3>";
+    echo "<h3 class='alert alert-primary'>Tu lista de cosas por hacer está vacía</h3>";
 }

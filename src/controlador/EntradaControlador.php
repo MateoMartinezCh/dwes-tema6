@@ -35,9 +35,9 @@ class EntradaControlador extends Controlador
             //* TEMPORAL
             return EntradaBd::getEntrada($entrada->getId());
         }
-        //*OTRO TEMPORAL SIESTAMAL LE DEVOLVEREMOS DATOS ETCC
+        //* SI ESTA MAL LE DEVOLVEMOS DATOS 
         $this->vista = 'entrada/nuevo';
-        return null;
+        return $entrada;
     }
 
     public function eliminar(): bool|null
