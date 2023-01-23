@@ -17,7 +17,8 @@ class EntradaControlador extends Controlador
 
     public function detalle(): Entrada|null
     {
-        return null;
+        $this->vista = 'entrada/detalle';
+        return EntradaBd::getEntrada(htmlspecialchars(trim($_GET['id'])));
     }
 
     public function nuevo(): Entrada|null
@@ -32,9 +33,7 @@ class EntradaControlador extends Controlador
             $this->vista = 'entrada/detalle';
             $entrada->setId(EntradaBd::insertar($entrada));
             //* TEMPORAL
-            return null;
-            /*             return EntradaBd::getEntrada($entrada->id);
- */
+            return EntradaBd::getEntrada($entrada->getId());
         }
         //*OTRO TEMPORAL SIESTAMAL LE DEVOLVEREMOS DATOS ETCC
         $this->vista = 'entrada/nuevo';
@@ -43,6 +42,12 @@ class EntradaControlador extends Controlador
 
     public function eliminar(): bool|null
     {
-        return null;
+        $this->vista = 'entrada/eliminar';
+        $id = $_GET && $_GET['id'] ? htmlspecialchars($_GET['id']) : null;
+        if ($id !== null) {
+            return EntradaBd::eliminar($id);
+        } else {
+            return false;
+        }
     }
 }
