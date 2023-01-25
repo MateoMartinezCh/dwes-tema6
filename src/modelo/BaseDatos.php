@@ -1,7 +1,8 @@
 <?php
+
 namespace dwesgram\modelo;
 
-use todolist\config\{BD_HOST, BD, BD_USUARIO, BD_CLAVE};
+use dwesgram\config\{BD_HOST, BD, BD_USUARIO, BD_CLAVE};
 
 trait BaseDatos
 {

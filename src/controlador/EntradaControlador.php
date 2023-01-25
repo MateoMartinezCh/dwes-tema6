@@ -23,6 +23,10 @@ class EntradaControlador extends Controlador
 
     public function nuevo(): Entrada|null
     {
+        if (!$this->autenticado()) {
+            header('Location:index.php');
+            return null;
+        }
         if (!$_POST) {
 
             $this->vista = 'entrada/nuevo';
@@ -44,6 +48,10 @@ class EntradaControlador extends Controlador
 
     public function eliminar(): bool|null
     {
+        if (!$this->autenticado()) {
+            header('Location:index.php');
+            return null;
+        }
         $this->vista = 'entrada/eliminar';
         $id = $_GET && $_GET['id'] ? htmlspecialchars($_GET['id']) : null;
         if ($id !== null) {

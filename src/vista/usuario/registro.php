@@ -1,3 +1,12 @@
+<?php
+$usuario = $datosParaVista['datos'];
+
+$nombre = $usuario !== null ? $usuario->getNombre() : '';
+$email = $usuario !== null ? $usuario->getEmail() : '';
+$errores = $usuario !== null ? $usuario->getErrores() : [];
+
+
+?>
 <div class="container">
     <h1>Regístrate</h1>
 
@@ -5,14 +14,35 @@
         <div class="mb-3">
             <label for="nombre" class="form-label">Nombre de usuario</label><br>
             <input type="text" id="nombre" name="nombre">
+            <?php
+            if (isset($errores['nombre'])) {
+                echo <<<END
+                    <p class='alert alert-danger'>{$errores['nombre']}</p>
+                    END;
+            }
+            ?>
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">E-mail</label><br>
             <input type="email" id="email" name="email">
+            <?php
+            if (isset($errores['email'])) {
+                echo <<<END
+                    <p class='alert alert-danger'>{$errores['email']}</p>
+                    END;
+            }
+            ?>
         </div>
         <div class="mb-3">
             <label for="clave" class="form-label">Contraseña</label><br>
             <input type="password" id="clave" name="clave">
+            <?php
+            if (isset($errores['clave'])) {
+                echo <<<END
+                    <p class='alert alert-danger'>{$errores['clave']}</p>
+                    END;
+            }
+            ?>
         </div>
         <div class="mb-3">
             <label for="repiteclave" class="form-label">Repite la contraseña</label><br>

@@ -1,6 +1,6 @@
 <?php
 $entrada = $datosParaVista['datos'];
-
+$texto = $entrada ? $entrada->getTexto() : '';
 $errores = $entrada ? $entrada->getErrores() : [];
 ?>
 <div class="container">
@@ -10,7 +10,7 @@ $errores = $entrada ? $entrada->getErrores() : [];
             <label for="texto" class="form-label">
                 ¿En qué estás pensando? Tienes 128 caracteres para plasmarlo... el resto se ignorará
             </label>
-            <textarea class="form-control" name="texto" id="texto" rows="3" placeholder="Escribe aquí el texto"></textarea>
+            <textarea class="form-control" name="texto" id="texto" rows="3" placeholder="Escribe aquí el texto"><?= $texto ?></textarea>
             <?php
             if (isset($errores['texto']) && $errores['texto'] !== null) {
                 echo "<p class='alert alert-danger'>{$errores['texto']}</p>";

@@ -22,10 +22,27 @@
           <li class="nav-item">
             <a class="nav-link" href="index.php">Home</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="index.php?controlador=entrada&accion=nuevo">Crear entrada</a>
-          </li>
+          <?php if ($sesion->haySesion()) { ?>
+            <li class="nav-item">
+              <a class="nav-link" href="index.php?controlador=entrada&accion=nuevo">Crear entrada</a>
+            </li>
+          <? } ?>
         </ul>
+      </div>
+      <div class="nav-item">
+        <?php if (!$sesion->haySesion()) { ?>
+          <a class="btn btn-outline-success" href="index.php?controlador=usuario&accion=login" role="button">Iniciar Sesión</a>
+          <a class="btn btn-outline-success" href="index.php?controlador=usuario&accion=registro" role="button">Crea una Cuenta</a>
+        <? } else {
+
+          $avatar = $sesion->getAvatar();
+          $nombre = $sesion->getNombre();
+          echo <<<END
+          <img src="$avatar" class="rounded float-start" style="width:50px;heigth:50px">
+          <a href="index.php?controlador=usuario&accion=logout">Cerrar Sesión($nombre)</a>
+          END;
+        }
+        ?>
       </div>
     </div>
   </nav>

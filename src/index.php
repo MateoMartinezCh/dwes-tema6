@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once('vendor/autoload.php');
 require_once('config/config.php');
 
@@ -36,7 +37,15 @@ $controladorNamespace = "dwesgram\controlador\\$controladorNombreClase";
 $controladorObjeto = new $controladorNamespace();
 
 /**********************************************************************************************************************
- * 4.- Cargar la vista
+ * 4.-Crear objeto Session
+ * 
+ * Vamos a crear el objeto session para la gestion de sessiones y dicho 
+ * objeto esté disponible en todas las vistas
+ */
+$sesion = new dwesgram\utility\Sesion();
+
+/**********************************************************************************************************************
+ * 5.- Cargar la vista
  * 
  * Para cargar la vista hay que llamar al método del controlador indicado por la acción que venía por GET.
  * 
