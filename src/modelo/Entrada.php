@@ -27,6 +27,30 @@ class Entrada extends Modelo
             texto: $texto
         );
     }
+    public function anyadirImagenDesdeFile(array $file): void
+    {
+        if (
+            $file && isset($file['imagen']) &&
+            $file['imagen']['error'] === UPLOAD_ERR_OK
+
+        ) {
+            $permitidos = array("png", "jpg");
+            $extension =  pathinfo($file['imagen']['name'], PATHINFO_EXTENSION);
+            $mimesPermitidos = array("image/jpg", "image/png", "image/jpeg");
+            $fichero = $file['imagen']['tmp_name'];
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $mime_fichero = finfo_file($finfo, $fichero);
+            if (in_array($extension, $permitidos) && in_array($mime_fichero, $mimesPermitidos)) {
+                $tiempoactualirrepetible = getdate();
+                $file['imagen']['name'] = $tiempoactualirrepetible['0'] . "." . $extension;
+                $rutaFicheroDestino = './img/' . basename($file['imagen']['name']);
+                move_uploaded_file($file['imagen']['tmp_name'], $rutaFicheroDestino);
+                $this->imagen = $rutaFicheroDestino;
+            } else {
+                $this->errores['imagen'] = 'Extensión o Mime no permitido';
+            }
+        }
+    }
     public function getId(): int|null
     {
         return $this->id;
@@ -51,14 +75,14 @@ class Entrada extends Modelo
         return $this->texto ? $this->texto : '';
     }
 
-    public function getImagen(): string|null
+    public function getImagen(): string
     {
         return $this->imagen ? $this->imagen : "https://imgs.search.brave.com/Uhe3CR6P16arr9sShRWOASq_P0hGpy544ngLMcG8W9M/rs:fit:474:225:1/g:ce/aHR0cHM6Ly90c2Ux/Lm1tLmJpbmcubmV0/L3RoP2lkPU9JUC5U/WUNIYmZsWkRrQVlZ/eU55TW9GNFdBSGFI/YSZwaWQ9QXBp";
     }
 
     public function esValida(): bool
     {
-        return empty($this->errores['texto']);
+        return empty($this->errores['texto']) && empty($this->errores['imagen']);
         /*         return count($this->errores) == 0;
  */
     }

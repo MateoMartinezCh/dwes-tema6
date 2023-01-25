@@ -20,6 +20,11 @@ $errores = $entrada ? $entrada->getErrores() : [];
         <div class="mb-3">
             <label for="imagen">Selecciona una imagen para acompañar a tu entrada</label>
             <input class="form-control" type="file" name="imagen" id="imagen">
+            <?php
+            if (isset($errores['imagen']) && $errores['imagen'] !== null) {
+                echo "<p class='alert alert-danger'>{$errores['imagen']}</p>";
+            }
+            ?>
         </div>
         <button type="submit" class="btn btn-primary">Publicar</button>
     </form>

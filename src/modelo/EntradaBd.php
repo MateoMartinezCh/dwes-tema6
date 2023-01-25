@@ -63,9 +63,10 @@ class EntradaBd
     {
         try {
             $texto = $entrada->getTexto();
+            $imagen = $entrada->getImagen();
             $conexion = BaseDatos::getConexion();
-            $sentencia = $conexion->prepare("insert into entrada (texto,autor) values (?,1098)");
-            $sentencia->bind_param('s', $texto);
+            $sentencia = $conexion->prepare("insert into entrada (texto,imagen,autor) values (?,?,1098)");
+            $sentencia->bind_param('ss', $texto, $imagen);
             $sentencia->execute();
             return $conexion->insert_id;
         } catch (\Exception $e) {

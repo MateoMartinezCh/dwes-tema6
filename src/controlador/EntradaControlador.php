@@ -29,10 +29,12 @@ class EntradaControlador extends Controlador
             return null;
         }
         $entrada = Entrada::crearEntradaDesdePost($_POST);
+        $entrada->anyadirImagenDesdeFile($_FILES);
+
         if ($entrada->esValida()) {
             $this->vista = 'entrada/detalle';
+
             $entrada->setId(EntradaBd::insertar($entrada));
-            //* TEMPORAL
             return EntradaBd::getEntrada($entrada->getId());
         }
         //* SI ESTA MAL LE DEVOLVEMOS DATOS 
