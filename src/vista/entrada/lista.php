@@ -17,9 +17,14 @@ if (!empty($datosParaVista['datos'])) {
                     <p class="card-text">{$entrada->getTexto()}</p>
                     <a  href="index.php?controlador=entrada&accion=detalle&id={$entrada->getId()} " class="btn btn-primary">Detalles</a>
         END;
-        if ($sesion->haySesion() && $sesion->getId() == $entrada->getAutor()) {
+        if ($sesion->haySesion()) {
 
-            echo "<a href='index.php?controlador=entrada&accion=eliminar&id={$entrada->getId()}' class='btn btn-danger'>Eliminar</a>";
+            if ($sesion->getId() == $entrada->getAutor()) {
+
+                echo "<a href='index.php?controlador=entrada&accion=eliminar&id={$entrada->getId()}' class='btn btn-danger'>Eliminar</a>";
+            } else {
+                echo "<a href='index.php?controlador=megusta&accion=nuevo&entrada={$entrada->getId()}&usuario={$sesion->getId()}&vuelta=lista'><i class='bi bi-heart'></i></a>";
+            }
         }
         echo <<<END
                 </div>

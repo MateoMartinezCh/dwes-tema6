@@ -4,6 +4,7 @@ namespace dwesgram\controlador;
 
 use dwesgram\modelo\Usuario;
 use dwesgram\modelo\UsuarioBd;
+/* Comprobar si esto es innecesario  */
 use dwesgram\modelo\Modelo;
 
 class UsuarioControlador extends Controlador

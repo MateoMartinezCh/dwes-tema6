@@ -23,8 +23,8 @@ class EntradaBd
                         id: $fila['id'],
                         texto: $fila['texto'],
                         imagen: $fila['imagen'],
-                        autor: $fila['autor']/* ,
-                        listaAutoresMegusta: MegustaBd::getAutores($fila['id']) */
+                        autor: $fila['autor'],
+                        listaAutoresMegusta: MegustaBd::getAutores($fila['id'])
                     );
                     $resultado[] = $entrada;
                 }
