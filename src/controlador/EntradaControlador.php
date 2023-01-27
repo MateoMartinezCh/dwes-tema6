@@ -5,6 +5,7 @@ namespace dwesgram\controlador;
 use dwesgram\controlador\Controlador;
 use dwesgram\modelo\Entrada;
 use dwesgram\modelo\EntradaBd;
+use dwesgram\utility\Sesion;
 
 class EntradaControlador extends Controlador
 {
@@ -52,10 +53,17 @@ class EntradaControlador extends Controlador
             header('Location:index.php');
             return null;
         }
+
         $this->vista = 'entrada/eliminar';
         $id = $_GET && $_GET['id'] ? htmlspecialchars($_GET['id']) : null;
+        $sesion = new Sesion();
+
         if ($id !== null) {
-            return EntradaBd::eliminar($id);
+            $entrada = EntradaBd::getEntrada($id);
+            if ($sesion->getId() == $entrada->getAutor()) {
+                return EntradaBd::eliminar($id);
+            }
+            return false;
         } else {
             return false;
         }

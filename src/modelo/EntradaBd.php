@@ -23,9 +23,10 @@ class EntradaBd
                         id: $fila['id'],
                         texto: $fila['texto'],
                         imagen: $fila['imagen'],
+                        autor: $fila['autor']/* ,
+                        listaAutoresMegusta: MegustaBd::getAutores($fila['id']) */
                     );
                     $resultado[] = $entrada;
-                    //!TENGO ESTE AUTOR QUE USARÉ LUEGO $fila['autor'];
                 }
             }
             return $resultado;
@@ -50,7 +51,7 @@ class EntradaBd
                     id: $fila['id'],
                     texto: $fila['texto'],
                     imagen: $fila['imagen'],
-                    /*! autor: $fila['autor'], */
+                    autor: $fila['autor'],
                     creado: $fila['creado'],
                 );
             }
@@ -64,9 +65,10 @@ class EntradaBd
         try {
             $texto = $entrada->getTexto();
             $imagen = $entrada->getImagen();
+            $autor = $entrada->getAutor();
             $conexion = BaseDatos::getConexion();
-            $sentencia = $conexion->prepare("insert into entrada (texto,imagen,autor) values (?,?,1098)");
-            $sentencia->bind_param('ss', $texto, $imagen);
+            $sentencia = $conexion->prepare("insert into entrada (texto,imagen,autor) values (?,?,?)");
+            $sentencia->bind_param('ssi', $texto, $imagen, $autor);
             $sentencia->execute();
             return $conexion->insert_id;
         } catch (\Exception $e) {

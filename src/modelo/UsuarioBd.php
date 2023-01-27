@@ -35,6 +35,31 @@ class UsuarioBd
             return null;
         }
     }
+    public static function getUsuarioPorId(int $id): Usuario|null
+    {
+        try {
+            $conexion = BaseDatos::getConexion();
+            $sentencia = $conexion->prepare("select id, nombre, clave ,email,avatar from usuario where id = ?");
+            $sentencia->bind_param('i', $id);
+            $sentencia->execute();
+            $resultado = $sentencia->get_result();
+            $fila = $resultado->fetch_assoc();
+            if ($fila == null) {
+                return null;
+            } else {
+                return new Usuario(
+                    id: $fila['id'],
+                    nombre: $fila['nombre'],
+                    clave: $fila['clave'],
+                    email: $fila['email'],
+                    avatar: $fila['avatar']
+                );
+            }
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+            return null;
+        }
+    }
     public static function insertar(Usuario $usuario): int|null
     {
         try {

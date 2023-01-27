@@ -51,9 +51,13 @@ class Usuario extends Modelo
             $file['avatar']['error'] === UPLOAD_ERR_OK
 
         ) {
-            $permitidos = array("png", "jpg");
+            //En mi proyecto permito Gifs también porque me resulta
+            //interesante dar la opción de tener un avatar que se pueda mover
+            //así es como se hace en sitios como steam.
+
+            $permitidos = array("png", "jpg", "gif");
             $extension =  pathinfo($file['avatar']['name'], PATHINFO_EXTENSION);
-            $mimesPermitidos = array("image/jpg", "image/png", "image/jpeg");
+            $mimesPermitidos = array("image/jpg", "image/png", "image/jpeg", "image/gif");
             $fichero = $file['avatar']['tmp_name'];
             $finfo = finfo_open(FILEINFO_MIME_TYPE);
             $mime_fichero = finfo_file($finfo, $fichero);

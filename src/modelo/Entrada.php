@@ -12,7 +12,9 @@ class Entrada extends Modelo
         private string|null $texto,
         private int|null $id = null,
         private string|null $imagen = null,
-        private int|null $creado = null
+        private int|null $creado = null,
+        private int|null $autor = null/* ,
+        private array $listaAutoresMegusta = [] */
     ) {
         $this->errores = [
             'texto' => $texto === null || empty($texto) ? 'El texto no puede estar vacío' : null,
@@ -22,9 +24,10 @@ class Entrada extends Modelo
     public static function crearEntradaDesdePost(array $post): Entrada
     {
         $texto = $post && isset($post['texto']) ? htmlspecialchars(trim($post['texto'])) : "";
-
+        $autor = $post && isset($post['autor']) ? htmlspecialchars(trim($post['autor'])) : "";
         return new Entrada(
-            texto: $texto
+            texto: $texto,
+            autor: $autor
         );
     }
     public function anyadirImagenDesdeFile(array $file): void
@@ -68,6 +71,15 @@ class Entrada extends Modelo
     public function setCreado(int $creado): void
     {
         $this->creado = $creado;
+    }
+    public function getAutor(): int|null
+    {
+        return $this->autor;
+    }
+
+    public function setAutor(int $autor): void
+    {
+        $this->autor = $autor;
     }
 
     public function getTexto(): string

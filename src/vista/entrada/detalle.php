@@ -1,4 +1,7 @@
 <?php
+
+use dwesgram\modelo\UsuarioBd;
+
 if (!empty($datosParaVista['datos']) && $datosParaVista['datos'] != null) {
     $entrada = $datosParaVista['datos'];
     $texto = $entrada->getTexto();
@@ -6,13 +9,14 @@ if (!empty($datosParaVista['datos']) && $datosParaVista['datos'] != null) {
     $id = $entrada->getId();
     $dt = new \DateTime('@' . $entrada->getCreado());
     $dtstr = $dt->format('r');
+    $autor = UsuarioBd::getUsuarioPorId($entrada->getAutor());
     echo <<<END
+        <h1>{$autor->getNombre()} escribió</h1>
         <p>$texto</p>
-        <img src="$img"/>
+        <img src="$img" class="img-fluid">
         <p><small>$dtstr</small></p>
     END;
-    if ($sesion->haySesion()) {
-
+    if ($sesion->haySesion() && $sesion->getId() == $entrada->getAutor()) {
         echo "<a href='index.php?controlador=entrada&accion=eliminar&id=$id' class='btn btn-danger'>Eliminar</a>";
     }
 } else {

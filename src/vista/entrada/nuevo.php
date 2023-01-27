@@ -6,6 +6,7 @@ $errores = $entrada ? $entrada->getErrores() : [];
 <div class="container">
     <h1>Nueva entrada</h1>
     <form action="index.php?controlador=entrada&accion=nuevo" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="autor" value="<?= $sesion->getId() ?>">
         <div class="mb-3">
             <label for="texto" class="form-label">
                 ¿En qué estás pensando? Tienes 128 caracteres para plasmarlo... el resto se ignorará
