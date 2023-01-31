@@ -98,6 +98,15 @@ class Entrada extends Modelo
         /*         return count($this->errores) == 0;
  */
     }
+    public function getListaAutoresMeGusta(): array
+    {
+        return $this->listaAutoresMegusta;
+    }
+    public function numAutores()
+    {
+
+        return count($this->listaAutoresMegusta);
+    }
 
     public function getErrores(): array
     {

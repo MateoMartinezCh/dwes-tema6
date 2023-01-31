@@ -53,6 +53,7 @@ class EntradaBd
                     imagen: $fila['imagen'],
                     autor: $fila['autor'],
                     creado: $fila['creado'],
+                    listaAutoresMegusta: MegustaBd::getAutores($fila['id'])
                 );
             }
         } catch (\Exception $e) {

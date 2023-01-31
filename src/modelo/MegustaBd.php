@@ -15,7 +15,7 @@ class MegustaBd
         try {
             $autores = [];
             $conexion = BaseDatos::getConexion();
-            $sentencia = $conexion->prepare("select usuario from megusta where id = ?");
+            $sentencia = $conexion->prepare("select usuario from megusta where entrada = ?");
             $sentencia->bind_param('i', $id);
             $sentencia->execute();
             $queryResultado = $sentencia->get_result();
