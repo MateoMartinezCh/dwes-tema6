@@ -31,29 +31,6 @@ class MegustaBd
             return [];
         }
     }
-    public static function getMegusta(int $id): Megusta|null
-    {
-        try {
-            $conexion = BaseDatos::getConexion();
-            $sentencia = $conexion->prepare("select id, usuario, entrada from megusta where id=?");
-            $sentencia->bind_param('i', $id);
-            $sentencia->execute();
-            $resultado = $sentencia->get_result();
-            $fila = $resultado->fetch_assoc();
-            if ($fila == null) {
-                return null;
-            } else {
-                return new Megusta(
-                    id: $fila['id'],
-                    usuario: $fila['usuario'],
-                    entrada: $fila['entrada']
-                );
-            }
-        } catch (\Exception $e) {
-            echo $e->getMessage();
-            return null;
-        }
-    }
     public static function insertar(Megusta $megusta): int|null
     {
         try {
@@ -67,6 +44,21 @@ class MegustaBd
         } catch (\Exception $e) {
             echo $e->getMessage();
             return null;
+        }
+    }
+    public static function eliminar(Megusta $megusta): bool
+    {
+        try {
+            $usuario = $megusta->getUsuario();
+            $entrada = $megusta->getEntrada();
+            $conexion = BaseDatos::getConexion();
+            $sentencia = $conexion->prepare("delete from megusta where usuario = ? and entrada = ?");
+            $sentencia->bind_param('ii', $usuario, $entrada);
+            $sentencia->execute();
+            return true;
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+            return false;
         }
     }
 }

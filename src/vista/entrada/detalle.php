@@ -24,7 +24,7 @@ if (!empty($datosParaVista['datos']) && $datosParaVista['datos'] != null) {
 
             //si no es el mismo autor pero ya le ha dado a me gusta le saldrá el corazón lleno.
         } else if (in_array($sesion->getId(), $entrada->getListaAutoresMeGusta())) {
-            echo "<i class='bi bi-heart-fill'></i>";
+            echo "<a href='index.php?controlador=megusta&accion=quitar&entrada={$entrada->getId()}&usuario={$sesion->getId()}&vuelta=detalle'><i class='bi bi-heart-fill'></i></a>";
             echo "<p>({$entrada->numAutores()} Me gusta)</p>";
         }
         //si no le ha dado a megusta entonces saldrá el corazón vacío y podrá darle a megusta
@@ -33,8 +33,11 @@ if (!empty($datosParaVista['datos']) && $datosParaVista['datos'] != null) {
             echo "<p>({$entrada->numAutores()} Me gusta)</p>";
         }
     } else {
-        echo "<i class='bi bi-heart'></i>";
-        /*             echo "<i class='bi bi-heart-fill'></i>";*/
+        if ($entrada->numAutores() != 0) {
+            echo "<i class='bi bi-heart-fill'></i>";
+        } else {
+            echo "<i class='bi bi-heart'></i>";
+        }
         echo "<p>({$entrada->numAutores()} Me gusta)</p>";
     }
 } else {
