@@ -6,6 +6,7 @@ if (!empty($datosParaVista['datos']) && $datosParaVista['datos'] != null) {
     $entrada = $datosParaVista['datos'];
     $texto = $entrada->getTexto();
     $img = $entrada->getImagen();
+    $comentarios = $entrada ? $entrada->getComentarios() : '';
     $id = $entrada->getId();
     $dt = new \DateTime('@' . $entrada->getCreado());
     $dtstr = $dt->format('r');
@@ -21,7 +22,13 @@ if (!empty($datosParaVista['datos']) && $datosParaVista['datos'] != null) {
         if ($sesion->getId() == $entrada->getAutor()) {
 
             echo "<a href='index.php?controlador=entrada&accion=eliminar&id={$entrada->getId()}' class='btn btn-danger'>Eliminar</a>";
-
+            if ($entrada->numAutores() != 0) {
+                echo "<i class='bi bi-heart-fill'></i>";
+            } else {
+                echo "<i class='bi bi-heart'></i>";
+            }
+            /*             echo "<i class='bi bi-heart-fill'></i>";*/
+            echo "<p>({$entrada->numAutores()} Me gusta)</p>";
             //si no es el mismo autor pero ya le ha dado a me gusta le saldrá el corazón lleno.
         } else if (in_array($sesion->getId(), $entrada->getListaAutoresMeGusta())) {
             echo "<a href='index.php?controlador=megusta&accion=quitar&entrada={$entrada->getId()}&usuario={$sesion->getId()}&vuelta=detalle'><i class='bi bi-heart-fill'></i></a>";
@@ -32,6 +39,16 @@ if (!empty($datosParaVista['datos']) && $datosParaVista['datos'] != null) {
             echo "<a href='index.php?controlador=megusta&accion=nuevo&entrada={$entrada->getId()}&usuario={$sesion->getId()}&vuelta=detalle'><i class='bi bi-heart'></i></a>";
             echo "<p>({$entrada->numAutores()} Me gusta)</p>";
         }
+        echo '            <h2>Comentarios</h2>';
+        echo '<p>Escribe aquí tu comentario:</p>';
+        echo '<form action="index.php?controlador=comentario&accion=nuevo" method="post" enctype="multipart/form-data">';
+        echo "<textarea class='form-control' name='comentario' id='comentario' rows='3' placeholder='Escribe aquí el comentario'></textarea>";
+        echo "<input type='hidden' name='usuario' value='{$sesion->getId()}'>";
+        echo "<input type='hidden' name='entrada' value='{$entrada->getId()}'>";
+        echo "<button type='submit' class='btn btn-primary'>Publicar Comentario</button>";
+        echo "</form>";
+
+        //PASAR AQUÍ ARRIBA EN EL FORMULARIO EL ID DE LA ENTRADA Y EL ID DEL USUARIO
     } else {
         if ($entrada->numAutores() != 0) {
             echo "<i class='bi bi-heart-fill'></i>";

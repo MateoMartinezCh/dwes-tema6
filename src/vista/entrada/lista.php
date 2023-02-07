@@ -22,7 +22,13 @@ if (!empty($datosParaVista['datos'])) {
             if ($sesion->getId() == $entrada->getAutor()) {
 
                 echo "<a href='index.php?controlador=entrada&accion=eliminar&id={$entrada->getId()}' class='btn btn-danger'>Eliminar</a>";
-
+                if ($entrada->numAutores() != 0) {
+                    echo "<i class='bi bi-heart-fill'></i>";
+                } else {
+                    echo "<i class='bi bi-heart'></i>";
+                }
+                /*             echo "<i class='bi bi-heart-fill'></i>";*/
+                echo "<p>({$entrada->numAutores()} Me gusta)</p>";
                 //si no es el mismo autor pero ya le ha dado a me gusta le saldrá el corazón lleno.
             } else if (in_array($sesion->getId(), $entrada->getListaAutoresMeGusta())) {
                 echo "<a href='index.php?controlador=megusta&accion=quitar&entrada={$entrada->getId()}&usuario={$sesion->getId()}&vuelta=lista'><i class='bi bi-heart-fill'></i></a>";

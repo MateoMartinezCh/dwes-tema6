@@ -14,7 +14,8 @@ class Entrada extends Modelo
         private string|null $imagen = null,
         private int|null $creado = null,
         private int|null $autor = null,
-        private array $listaAutoresMegusta = []
+        private array $listaAutoresMegusta = [],
+        private array $listaComentarios = []
     ) {
         $this->errores = [
             'texto' => $texto === null || empty($texto) ? 'El texto no puede estar vacío' : null,
@@ -101,6 +102,10 @@ class Entrada extends Modelo
     public function getListaAutoresMeGusta(): array
     {
         return $this->listaAutoresMegusta;
+    }
+    public function getComentarios(): array
+    {
+        return $this->listaComentarios;
     }
     public function numAutores()
     {

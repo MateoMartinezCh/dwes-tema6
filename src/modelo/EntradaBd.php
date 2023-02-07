@@ -24,7 +24,8 @@ class EntradaBd
                         texto: $fila['texto'],
                         imagen: $fila['imagen'],
                         autor: $fila['autor'],
-                        listaAutoresMegusta: MegustaBd::getAutores($fila['id'])
+                        listaAutoresMegusta: MegustaBd::getAutores($fila['id']),
+                        //listaComentarios:ComentarioBD::getComentarios($fila['?'])
                     );
                     $resultado[] = $entrada;
                 }
