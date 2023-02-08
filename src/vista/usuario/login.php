@@ -5,7 +5,6 @@ $mensaje = $datos !== null ? $datos['mensaje'] : '';
 ?>
 <div class="container">
     <h1>Inicia sesión</h1>
-    <h3><?= $mensaje ?></h3>
 
     <form action="index.php?controlador=usuario&accion=login" method="post">
         <div class="mb-3">
@@ -16,6 +15,7 @@ $mensaje = $datos !== null ? $datos['mensaje'] : '';
             <label for="clave" class="form-label">Contraseña</label><br>
             <input type="password" id="clave" name="clave">
         </div>
+        <p class="alert alert-danger"><?= $mensaje ?></p>
         <button type="submit" class="btn btn-primary">Entrar</button>
     </form>
 </div>
