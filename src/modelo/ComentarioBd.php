@@ -10,24 +10,27 @@ class ComentarioBd
 
 
     /**
-     * !ESTE METODO NO ESTA TERMINADO NI FUNCIONA AÚN
+     * 
      */
     public static function getComentarios(int $id): array
     {
         try {
-            $autores = [];
+            $comentarios = [];
             $conexion = BaseDatos::getConexion();
-            $sentencia = $conexion->prepare("select id, comentario, usuario from megusta where entrada = ?");
+            $sentencia = $conexion->prepare("select id, comentario, usuario  from comentario where entrada = ?");
             $sentencia->bind_param('i', $id);
             $sentencia->execute();
             $queryResultado = $sentencia->get_result();
             if ($queryResultado !== false) {
                 while (($fila = $queryResultado->fetch_assoc()) != null) {
 
-                    $autores[] = $fila['usuario'];
+                    $comentarios[] = array(
+                        "usuario" => $fila['usuario'],
+                        "comentario" => $fila['comentario']
+                    );
                 }
             }
-            return $autores;
+            return $comentarios;
         } catch (\Exception $e) {
             echo $e->getMessage();
             return [];

@@ -47,7 +47,20 @@ if (!empty($datosParaVista['datos']) && $datosParaVista['datos'] != null) {
         echo "<input type='hidden' name='entrada' value='{$entrada->getId()}'>";
         echo "<button type='submit' class='btn btn-primary'>Publicar Comentario</button>";
         echo "</form>";
-        
+        echo '<ol class="list-group list-group">';
+
+        foreach ($comentarios as $key => $comentario) {
+            $autorcomentario = UsuarioBd::getUsuarioPorId($comentario['usuario']);
+            echo '<li class="list-group-item d-flex justify-content-between align-items-start">';
+            echo '<div class="ms-2 me-auto">';
+            echo '<div class="fw-bold">' . $autorcomentario->getNombre() . ' comentó:</div>';
+            echo $comentario['comentario'];
+            echo '</div>';
+            echo '<span class="badge bg-primary ">#' . $key + 1 . '</span>';
+            echo '</li>';
+        }
+
+        echo "</ol>";
     } else {
         if ($entrada->numAutores() != 0) {
             echo "<i class='bi bi-heart-fill'></i>";
