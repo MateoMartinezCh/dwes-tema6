@@ -15,7 +15,12 @@ $mensaje = $datos !== null ? $datos['mensaje'] : '';
             <label for="clave" class="form-label">Contraseña</label><br>
             <input type="password" id="clave" name="clave">
         </div>
-        <p class="alert alert-danger"><?= $mensaje ?></p>
+        <?php
+        if ($mensaje !== '') {
+
+            echo '<p class="alert alert-danger">' . $mensaje . '</p>';
+        }
+        ?>
         <button type="submit" class="btn btn-primary">Entrar</button>
     </form>
 </div>
