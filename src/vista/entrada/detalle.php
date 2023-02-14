@@ -42,13 +42,12 @@ if (!empty($datosParaVista['datos']) && $datosParaVista['datos'] != null) {
         echo '            <h2>Comentarios</h2>';
         echo '<p>Escribe aquí tu comentario:</p>';
         echo '<form action="index.php?controlador=comentario&accion=nuevo" method="post" enctype="multipart/form-data">';
-        echo "<textarea class='form-control' name='comentario' id='comentario' rows='3' placeholder='Escribe aquí el comentario'></textarea>";
+        echo "<textarea class='form-control' name='texto' id='texto' rows='3' placeholder='Escribe aquí el comentario'></textarea>";
         echo "<input type='hidden' name='usuario' value='{$sesion->getId()}'>";
         echo "<input type='hidden' name='entrada' value='{$entrada->getId()}'>";
         echo "<button type='submit' class='btn btn-primary'>Publicar Comentario</button>";
         echo "</form>";
-
-        //PASAR AQUÍ ARRIBA EN EL FORMULARIO EL ID DE LA ENTRADA Y EL ID DEL USUARIO
+        
     } else {
         if ($entrada->numAutores() != 0) {
             echo "<i class='bi bi-heart-fill'></i>";

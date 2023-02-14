@@ -38,6 +38,14 @@ class Comentario extends Modelo
     {
         $this->id = $id;
     }
+    public function setTexto(String $texto)
+    {
+        $this->texto = $texto;
+    }
+    public function getTexto()
+    {
+        return $this->texto;
+    }
     public function getUsuario(): int|null
     {
         return $this->usuario;
@@ -60,7 +68,7 @@ class Comentario extends Modelo
 
     public function esValido(): bool
     {
-        return empty($this->errores['usuario']) && empty($this->errores['entrada']) && empty($this->errores['texto']);
+        return empty($this->errores['texto']);
         //         return count($this->errores) == 0;
     }
 
