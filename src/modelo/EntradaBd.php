@@ -24,8 +24,8 @@ class EntradaBd
                         texto: $fila['texto'],
                         imagen: $fila['imagen'],
                         autor: $fila['autor'],
-                        listaAutoresMegusta: MegustaBd::getAutores($fila['id']),
-                        //listaComentarios:ComentarioBD::getComentarios($fila['?'])
+                        listaAutoresMegusta: MegustaBd::getAutores($fila['id'])
+                        
                     );
                     $resultado[] = $entrada;
                 }
@@ -54,7 +54,8 @@ class EntradaBd
                     imagen: $fila['imagen'],
                     autor: $fila['autor'],
                     creado: $fila['creado'],
-                    listaAutoresMegusta: MegustaBd::getAutores($fila['id'])
+                    listaAutoresMegusta: MegustaBd::getAutores($fila['id']),
+                    listaComentarios: ComentarioBd::getComentarios($fila['id'])
                 );
             }
         } catch (\Exception $e) {

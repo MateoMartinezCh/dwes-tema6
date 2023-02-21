@@ -63,9 +63,8 @@ class EntradaControlador extends Controlador
             if ($sesion->getId() == $entrada->getAutor()) {
                 return EntradaBd::eliminar($id);
             }
-            return false;
-        } else {
-            return false;
+            
         }
+        return false;
     }
 }

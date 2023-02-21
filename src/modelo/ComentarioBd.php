@@ -10,63 +10,49 @@ class ComentarioBd
 
 
     /**
-     * !ESTE METODO NO ESTA TERMINADO NI FUNCIONA AÚN
+     * 
      */
     public static function getComentarios(int $id): array
     {
         try {
-            $autores = [];
+            $comentarios = [];
             $conexion = BaseDatos::getConexion();
-            $sentencia = $conexion->prepare("select id, comentario, usuario from megusta where entrada = ?");
+            $sentencia = $conexion->prepare("select id, comentario, usuario  from comentario where entrada = ?");
             $sentencia->bind_param('i', $id);
             $sentencia->execute();
             $queryResultado = $sentencia->get_result();
             if ($queryResultado !== false) {
                 while (($fila = $queryResultado->fetch_assoc()) != null) {
 
-                    $autores[] = $fila['usuario'];
+                    $comentarios[] = array(
+                        "usuario" => $fila['usuario'],
+                        "comentario" => $fila['comentario']
+                    );
                 }
             }
-            return $autores;
+            return $comentarios;
         } catch (\Exception $e) {
             echo $e->getMessage();
             return [];
         }
     }
     /**
-     * !ESTE METODO NO ESTA TERMINADO NI FUNCIONA AÚN
+     * 
      */
-    public static function insertar(Megusta $megusta): int|null
+    public static function insertar(Comentario $comentario): int|null
     {
         try {
-            $usuario = $megusta->getUsuario();
-            $entrada = $megusta->getEntrada();
+            $usuario = $comentario->getUsuario();
+            $entrada = $comentario->getEntrada();
+            $texto = $comentario->getTexto();
             $conexion = BaseDatos::getConexion();
-            $sentencia = $conexion->prepare("insert into megusta (usuario,entrada) values (?,?)");
-            $sentencia->bind_param('ii', $usuario, $entrada);
+            $sentencia = $conexion->prepare("insert into comentario (usuario,entrada,comentario) values (?,?,?)");
+            $sentencia->bind_param('iis', $usuario, $entrada, $texto);
             $sentencia->execute();
             return $conexion->insert_id;
         } catch (\Exception $e) {
             echo $e->getMessage();
             return null;
-        }
-    }
-    /**
-     * !ESTE METODO NO ESTA TERMINADO NI FUNCIONA AÚN
-     */
-    public static function eliminar(Megusta $megusta): bool
-    {
-        try {
-            $usuario = $megusta->getUsuario();
-            $entrada = $megusta->getEntrada();
-            $conexion = BaseDatos::getConexion();
-            $sentencia = $conexion->prepare("delete from megusta where usuario = ? and entrada = ?");
-            $sentencia->bind_param('ii', $usuario, $entrada);
-            $sentencia->execute();
-            return true;
-        } catch (\Exception $e) {
-            echo $e->getMessage();
-            return false;
         }
     }
 }
