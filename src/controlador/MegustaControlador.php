@@ -19,16 +19,23 @@ class MegustaControlador extends Controlador
             return null;
         }
         $megusta = Megusta::crearMegustaDesdeGet($_GET);
-        if ($megusta->esValido()) {
-            $megusta->setId(MegustaBd::insertar($megusta));
+        $entrada = EntradaBd::getEntrada($megusta->getEntrada());
+        $sesion = new Sesion();
+        if ($entrada->getAutor() != $sesion->getId()) {
 
-            if (isset($_GET['vuelta']) && $_GET['vuelta'] == 'detalle') {
-                $this->vista = 'entrada/detalle';
-                return EntradaBd::getEntrada($megusta->getEntrada());
+            if ($megusta->esValido()) {
+                $megusta->setId(MegustaBd::insertar($megusta));
+
+                if (isset($_GET['vuelta']) && $_GET['vuelta'] == 'detalle') {
+                    $this->vista = 'entrada/detalle';
+                    return EntradaBd::getEntrada($megusta->getEntrada());
+                }
+                $this->vista = 'entrada/lista';
+                return EntradaBd::getEntradas();
             }
-            $this->vista = 'entrada/lista';
-            return EntradaBd::getEntradas();
         }
+        header('Location:index.php');
+        return null;
     }
     public function quitar(): Entrada|array|null
     {
@@ -43,7 +50,7 @@ class MegustaControlador extends Controlador
         $megusta = Megusta::crearMegustaDesdeGet($_GET);
         $entradaid = $megusta->getEntrada();
         $entrada = EntradaBd::getEntrada($entradaid);
-        if (in_array($sesion->getId(), $entrada->getListaAutoresMeGusta())) {
+        if (in_array($sesion->getId(), $entrada->getListaAutoresMeGusta()) && $entrada->getAutor() != $sesion->getId()) {
             MegustaBd::eliminar($megusta);
 
             if (isset($_GET['vuelta']) && $_GET['vuelta'] == 'detalle') {
@@ -53,5 +60,7 @@ class MegustaControlador extends Controlador
             $this->vista = 'entrada/lista';
             return EntradaBd::getEntradas();
         }
+        header('Location:index.php');
+        return null;
     }
 }
